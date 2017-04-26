@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="Packing">
+    <serverData>
+      <paths name="Jabda.net">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="JabdaManagement">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Kometa">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="Packing">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/" local="$PROJECT_DIR$" web="alphageen" />
+          </mappings>
+          <excludedPaths>
+            <excludedPath path="/.cache" />
+            <excludedPath path="/.config" />
+            <excludedPath path="/.local" />
+            <excludedPath path="/.subversion" />
+            <excludedPath path="/.usermin" />
+            <excludedPath path="/cgi-bin" />
+            <excludedPath path="/etc" />
+            <excludedPath path="/fcgi-bin" />
+            <excludedPath path="/homes" />
+            <excludedPath path="/logs" />
+            <excludedPath path="/Maildir" />
+            <excludedPath path="/packing" />
+            <excludedPath path="/tmp" />
+            <excludedPath path="/packingLumen/vendor" />
+            <excludedPath path="/public_html/phpmyadmin" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.cache" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.config" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.local" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.subversion" />
+            <excludedPath local="true" path="$PROJECT_DIR$/.usermin" />
+            <excludedPath local="true" path="$PROJECT_DIR$/cgi-bin" />
+            <excludedPath local="true" path="$PROJECT_DIR$/etc" />
+            <excludedPath local="true" path="$PROJECT_DIR$/fcgi-bin" />
+            <excludedPath local="true" path="$PROJECT_DIR$/homes" />
+            <excludedPath local="true" path="$PROJECT_DIR$/logs" />
+            <excludedPath local="true" path="$PROJECT_DIR$/Maildir" />
+            <excludedPath local="true" path="$PROJECT_DIR$/packing" />
+            <excludedPath local="true" path="$PROJECT_DIR$/tmp" />
+            <excludedPath local="true" path="$PROJECT_DIR$/packingLumen/vendor" />
+            <excludedPath local="true" path="$PROJECT_DIR$/public_html/phpmyadmin" />
+          </excludedPaths>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>

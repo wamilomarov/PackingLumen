@@ -1,0 +1,254 @@
+{
+  "Status codes": {
+    "200": "Success",
+    "301": "Place does not allow this track",
+    "302": "Place blocked this artist",
+    "303": "Already done",
+    "401": "User is not logged in. Unauthenticated",
+    "402": "Unknown error",
+    "403": "Your activity in this place has suspended.",
+    "405": "Wrong request. Something is missing in request. Wrong request fields",
+    "406": "Email is already registered",
+    "407": "Credentials incorrect",
+    "408": "Email is not confirmed",
+    "409": "No such data",
+    "410": "Already exists",
+    "411": "Limit is reached",
+    "412": "Password and confirm password are different",
+    "413": "Not current music",
+    "414": "Place is offline"
+  },
+
+  "Links":[
+    {
+      //POST: /login
+      //email, password
+      "status": [200, 405, 407],
+      "data": {
+        "api_token": "crm58fee94b3ea2a2.32554796",
+        "user": {
+          "id": 3,
+          "status": 1,
+          "first_name": "Shamil",
+          "last_name": "Omarov",
+          "mobile_phone": "245415",
+          "office_phone": "351651",
+          "email": "email@email.com"
+        }
+      }
+    },
+    {
+      //POST: /logout
+      //user_id, api_token
+      "status": [200, 401]
+    },
+    {
+      //POST: /registerUser
+      //status(optional), first_name, last_name, email, password, mobile_phone, office_phone, user_id, api_token
+      "status": [200, 402, 405, 401]
+    },
+    {
+      //POST: /updateUser
+      //status, first_name, last_name, email, mobile_phone, office_phone (all optional, at least one of them is needed), updated_user_id, user_id, api_token
+      "status": [200, 405, 401]
+    },
+    {
+      //GET: /deleteUser/{id}?user_id=&api_token=
+      "status": [200, 409, 401]
+    },
+    {
+      //POST: /searchUser
+      //status, first_name, last_name, email, password, mobile_phone, office_phone, user_id, api_token
+      "status": [200, 405, 401],
+      "data":
+        {
+          "users": [
+            {
+              "id": 2,
+              "status": 1,
+              "first_name": "Shamil",
+              "last_name": "Omarov",
+              "mobile_phone": "245415",
+              "office_phone": "351651",
+              "email": "email@email.com"
+            },
+            {
+              //...
+            }
+          ]
+        }
+    },
+    {
+      //GET: /getUser/{gotten_user_id}?user_id=&api_token=
+      "status": [200, 401],
+      "data":{
+        "user":{
+          "id": 2,
+          "status": 1,
+          "first_name": "Shamil",
+          "last_name": "Omarov",
+          "mobile_phone": "245415",
+          "office_phone": "351651",
+          "email": "email@email.com"
+        }
+      }
+
+    },
+    {
+      //POST: /registerCompany
+      //user_id, api_token, name, email, address, phone, website, workers_count(optional)
+      "status": [200, 405, 410, 401]
+    },
+    {
+      //POST: /updateCompany
+      //name, email, address, phone, website, workers_count(all optional, at leas one should exist), updated_company_id, user_id, api_token
+      "status": [200, 405, 409, 401]
+    },
+    {
+      //POST: /deleteCompany/{id}?user_id=&api_tokem
+      "status": [200, 409, 401]
+    },
+    {
+      //POST: /searchCompany
+      //name, email, address, phone, website, workers_count(all optional, at leas one should exist), user_id, api_token
+      "status": [200, 405, 409, 401],
+      "data": {
+        "companies": [
+          {
+            "id": 3,
+            "name": "BHOS",
+            "phone": "4352345",
+            "email": "bhos@email.com",
+            "address": "Khojali",
+            "workers_count": 0
+          }
+        ]
+      }
+    },
+    {
+      //GET: /getCompany/{id}?user_id=&api_token=
+      "status": [200, 401],
+      "data": {
+        "company": {
+          "id": 3,
+          "name": "BHOS",
+          "address": "Khojali",
+          "phone": "4352345",
+          "email": "bhos@email.com",
+          "website": "www.bhso.edu.az",
+          "workers_count": 0,
+          "created_at": "2017-04-24 15:34:25",
+          "updated_at": "2017-04-24 15:34:25"
+        },
+        "notes": [
+          {
+            "id": 1,
+            "note": "nice! very nice!",
+            "user_id": 3,
+            "company_id": 3,
+            "created_at": "2017-04-24 00:00:00",
+            "updated_at": "2017-04-24 00:00:00",
+            "user_last_name": "Omarov",
+            "user_first_name": "Shamil"
+          },
+          {
+            "id": 2,
+            "note": "where is second diploma?",
+            "user_id": 3,
+            "company_id": 3,
+            "created_at": "2017-04-24 00:00:00",
+            "updated_at": "2017-04-24 00:00:00",
+            "user_last_name": "Omarov",
+            "user_first_name": "Shamil"
+          }
+        ],
+        "workers": [
+          {
+            "id": 1,
+            "company_id": 3,
+            "first_name": "Shamil",
+            "last_name": "Omarov",
+            "position": "rektor",
+            "mobile_phone": "245415",
+            "office_phone": "351651",
+            "email": "email@email.com",
+            "created_at": "2017-04-24 00:00:00",
+            "updated_at": "2017-04-24 00:00:00"
+          },
+          {
+            "id": 2,
+            "company_id": 3,
+            "first_name": "Karim",
+            "last_name": "Karimov",
+            "position": "prorektor",
+            "mobile_phone": "785482",
+            "office_phone": "7854785",
+            "email": "karim@email.com",
+            "created_at": "2017-04-24 00:00:00",
+            "updated_at": "2017-04-24 00:00:00"
+          }
+        ]
+      }
+    },
+    {
+      //POST: /registerWorker
+      //user_id, api_token, first_name, last_name, email, mobile_phone, office_phone, position, company_id
+      "status": [200, 402, 405, 401]
+    },
+    {
+      //POST: /updateWorker
+      //position, company_id, first_name, last_name, email, mobile_phone, office_phone (all optional, at least one of them is needed), updated_worker_id, user_id, api_token
+      "status": [200, 405, 409, 401]
+    },
+    {
+      //GET: /deleteWorker/{id}?user_id=&api_token=
+      "status": [200, 409, 401]
+    },
+    {
+      //POST: /searchWorker
+      //position, company_id, first_name, last_name, email, mobile_phone, office_phone, user_id, api_token
+      "status": [200, 405, 401],
+      "data": {
+        "workers": [
+          {
+            "id": 1,
+            "company_id": 3,
+            "first_name": "Shamil",
+            "last_name": "Omarov",
+            "position": "rektor",
+            "mobile_phone": "245415",
+            "office_phone": "351651",
+            "email": "email@email.com",
+            "created_at": "2017-04-24 00:00:00",
+            "updated_at": "2017-04-24 00:00:00",
+            "company_name": "BHOS"
+          },
+          {
+            //...
+          }
+        ]
+      }
+    },
+    {
+      //GET: /getWorker/{id}?user_id=&api_token=
+      "status": [200, 401],
+      "data": {
+        "worker": {
+          "id": 2,
+          "company_id": 3,
+          "first_name": "Karim",
+          "last_name": "Karimov",
+          "position": "prorektor",
+          "mobile_phone": "785482",
+          "office_phone": "7854785",
+          "email": "karim@email.com",
+          "created_at": "2017-04-24 00:00:00",
+          "updated_at": "2017-04-24 00:00:00",
+          "company_name": "BHOS"
+
+        }
+      }
+
+    }
+  ]
+}
