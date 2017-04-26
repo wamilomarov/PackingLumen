@@ -191,6 +191,29 @@
       }
     },
     {
+      //GET: /getCompanies?user_id=&api_token=&page= (page is optional for the first request, in next requests need to get it using current_page + 1)
+      // DO NOT USE next_page_url!!! it does not send token and user_id!
+      "status": 200,
+      "data": {
+        "companies": {
+          "total": 2,
+          "per_page": 1,
+          "current_page": 1,
+          "last_page": 2,
+          "next_page_url": "http://52.166.74.139:92/getCompanies?page=2",
+          "prev_page_url": null,
+          "from": 1,
+          "to": 1,
+          "data": [
+            {
+              "id": 1,
+              "name": "Baku Holding"
+            }
+          ]
+        }
+      }
+    },
+    {
       //POST: /registerWorker
       //user_id, api_token, first_name, last_name, email, mobile_phone, office_phone, position, company_id
       "status": [200, 402, 405, 401]

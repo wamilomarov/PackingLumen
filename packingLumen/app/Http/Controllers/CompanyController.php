@@ -127,8 +127,9 @@ class CompanyController extends Controller
 
     public function getCompaniesList()
     {
-        $companies = DB::table('companies')->select('id', 'name')->paginate(15);
-        return response()->json($companies);
+        $response['status'] = 200;
+        $response['data']['companies'] = DB::table('companies')->select('id', 'name')->paginate(1);
+        return response()->json($response);
     }
 
     public function search(Request $request)

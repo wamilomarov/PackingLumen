@@ -40,7 +40,7 @@ $app->post('/searchCompany', 'CompanyController@search');
 
 $app->get('/getCompany/{id}', 'CompanyController@info');
 
-$app->get('/getCompanies', 'CompanyController@getCompaniesList');
+$app->get('/getCompanies', ['middleware' => 'auth', 'uses' => 'CompanyController@getCompaniesList']);
 
 
 $app->post('/registerWorker', 'CompanyController@registerWorker');
