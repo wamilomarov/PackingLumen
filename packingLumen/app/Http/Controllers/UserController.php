@@ -406,7 +406,18 @@ class UserController extends Controller
         leftJoin('users', 'meetings.user_id', '=', 'users.id')->
         leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
         select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as users_first_name', 'users.last_name as users_last_name')->
-        where('meetings.id', '=', intval($id))->get();
+        where('meetings.id', '=', intval($id))->first();
+        $result['status'] = 200;
+        return response()->json($result);
+    }
+
+    public function getReminders($id)
+    {
+        $result['data']['meetings'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
+        leftJoin('users', 'meetings.user_id', '=', 'users.id')->
+        leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
+        select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as users_first_name', 'users.last_name as users_last_name')->
+        where('meetings.id', '=', intval($id))->where(DB::raw("DATEDIFF(meeting_date, NOW())"), '<=', 3)->get();
         $result['status'] = 200;
         return response()->json($result);
     }

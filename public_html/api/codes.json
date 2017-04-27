@@ -272,32 +272,6 @@
         }
       }
 
-    },
-    {
-      //GET: /getReminders/{id}?user_id=&token=
-      "status": [200, 401],
-      "data": {
-        "meetings": [
-          {
-            "id": 1,
-            "company_id": 3,
-            "worker_id": 2,
-            "user_id": 3,
-            "meeting_date": "2017-05-05",
-            "organiser": "someone",
-            "note": "let's see what will happen :D",
-            "created_at": "2017-04-24 00:00:00",
-            "updated_at": "2017-04-24 00:00:00",
-            "company_name": "BHOS",
-            "worker_first_name": "Karim",
-            "worker_last_name": "Karimov",
-            "users_first_name": "Shamil",
-            "users_last_name": "Omarov"
-          }
-        ]
-      }
-
     }
-    }
-    ]
+  ]
 }

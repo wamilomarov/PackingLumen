@@ -80,6 +80,8 @@ $app->get('/deleteMeeting/{id}', 'UserController@deleteMeeting');
 
 $app->get('/getMeeting/{id}', 'UserController@infoMeeting');
 
+$app->get('/getReminders/{id}', 'UserController@getReminders');
+
 
 
 
