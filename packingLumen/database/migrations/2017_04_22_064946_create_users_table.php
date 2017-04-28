@@ -18,8 +18,8 @@ class CreateUsersTable extends Migration
             $table->integer('status')->default(1);
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('mobile_phone');
-            $table->string('office_phone');
+            $table->string('mobile_phone')->nullable();
+            $table->string('office_phone')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->string('api_token');

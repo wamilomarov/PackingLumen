@@ -16,9 +16,9 @@ class CreateMachinesTable extends Migration
         Schema::create('machines', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('company_id');
-            $table->string('brand');
+            $table->string('brand')->nullable();
             $table->string('model');
-            $table->text('note');
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

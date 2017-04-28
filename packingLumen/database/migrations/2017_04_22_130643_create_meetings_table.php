@@ -19,8 +19,8 @@ class CreateMeetingsTable extends Migration
             $table->integer('worker_id');
             $table->integer('user_id');
             $table->date('meeting_date');
-            $table->string('organiser');
-            $table->text('note');
+            $table->string('organiser')->nullable();
+            $table->text('note')->nullable();
             $table->timestamps();
         });
     }

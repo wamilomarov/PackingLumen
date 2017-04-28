@@ -43,44 +43,44 @@ $app->get('/getCompany/{id}', 'CompanyController@info');
 $app->get('/getCompanies', ['middleware' => 'auth', 'uses' => 'CompanyController@getCompaniesList']);
 
 
-$app->post('/registerWorker', 'CompanyController@registerWorker');
+$app->post('/registerWorker', 'WorkerController@register');
 
-$app->post('/updateWorker', 'CompanyController@updateWorker');
+$app->post('/updateWorker', 'WorkerController@update');
 
-$app->get('/deleteWorker/{id}', 'CompanyController@deleteWorker');
+$app->get('/deleteWorker/{id}', 'WorkerController@delete');
 
-$app->post('/searchWorker', 'CompanyController@searchWorker');
+$app->post('/searchWorker', 'WorkerController@search');
 
-$app->get('/getWorker/{id}', 'CompanyController@infoWorker');
-
-
-$app->post('/addMachine', 'CompanyController@addMachine');
-
-$app->post('/updateMachine', 'CompanyController@updateMachine');
-
-$app->get('/deleteMachine/{id}', 'CompanyController@deleteMachine');
-
-$app->get('/getMachine/{id}', 'CompanyController@infoMachine');
+$app->get('/getWorker/{id}', 'WorkerController@info');
 
 
-$app->post('/addNote', 'UserController@addNote');
+$app->post('/addMachine', 'MachineController@add');
 
-$app->post('/updateNote', 'UserController@updateMachine');
+$app->post('/updateMachine', 'MachineController@update');
 
-$app->get('/deleteNote/{id}', 'UserController@deleteMachine');
+$app->get('/deleteMachine/{id}', 'MachineController@delete');
 
-$app->get('/getNote/{id}', 'UserController@infoMachine');
+$app->get('/getMachine/{id}', 'MachineController@info');
 
 
-$app->post('/addMeeting', 'UserController@addMeeting');
+$app->post('/addNote', 'CompanyNoteController@add');
 
-$app->post('/updateMeeting', 'UserController@updateMeeting');
+$app->post('/updateNote', 'CompanyNoteController@update');
 
-$app->get('/deleteMeeting/{id}', 'UserController@deleteMeeting');
+$app->get('/deleteNote/{id}', 'CompanyNoteController@delete');
 
-$app->get('/getMeeting/{id}', 'UserController@infoMeeting');
+$app->get('/getNote/{id}', 'CompanyNoteController@info');
 
-$app->get('/getReminders/{id}', 'UserController@getReminders');
+
+$app->post('/addMeeting', 'MeetingController@add');
+
+$app->post('/updateMeeting', 'MeetingController@update');
+
+$app->get('/deleteMeeting/{id}', 'MeetingController@delete');
+
+$app->get('/getMeeting/{id}', 'MeetingController@info');
+
+$app->get('/getReminders/{id}', 'MeetingController@getReminders');
 
 
 

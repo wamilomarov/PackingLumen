@@ -48,12 +48,12 @@
       "status": [200, 402, 405, 401]
     },
     {
-      //POST: /updateUser
+      //PUT: /updateUser
       //status, first_name, last_name, email, mobile_phone, office_phone (all optional, at least one of them is needed), updated_user_id, user_id, api_token
       "status": [200, 405, 401]
     },
     {
-      //GET: /deleteUser/{id}?user_id=&api_token=
+      //DELETE: /deleteUser/{id}?user_id=&api_token=
       "status": [200, 409, 401]
     },
     {
@@ -100,12 +100,12 @@
       "status": [200, 405, 410, 401]
     },
     {
-      //POST: /updateCompany
+      //PUT: /updateCompany
       //name, email, address, phone, website, workers_count(all optional, at leas one should exist), updated_company_id, user_id, api_token
       "status": [200, 405, 409, 401]
     },
     {
-      //POST: /deleteCompany/{id}?user_id=&api_tokem
+      //DELETE: /deleteCompany/{id}?user_id=&api_tokem
       "status": [200, 409, 401]
     },
     {
@@ -219,12 +219,12 @@
       "status": [200, 402, 405, 401]
     },
     {
-      //POST: /updateWorker
+      //PUT: /updateWorker
       //position, company_id, first_name, last_name, email, mobile_phone, office_phone (all optional, at least one of them is needed), updated_worker_id, user_id, api_token
       "status": [200, 405, 409, 401]
     },
     {
-      //GET: /deleteWorker/{id}?user_id=&api_token=
+      //DELETE: /deleteWorker/{id}?user_id=&api_token=
       "status": [200, 409, 401]
     },
     {
@@ -297,7 +297,8 @@
         ]
       }
 
-    }
+    },
+    {
     }
     ]
 }
