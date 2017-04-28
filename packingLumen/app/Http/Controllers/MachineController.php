@@ -32,7 +32,7 @@ class MachineController extends Controller
     {
         $request = $request->json();
 
-        if ($request->has('company_id') && $request->has('model')) {
+        if ($request->has('company_id') && $request->has('model') && $request->has('brand_id')) {
 
             $machine = new Machine($request->all());
 
@@ -49,7 +49,7 @@ class MachineController extends Controller
         return response()->json($result);
     }
 
-    public function updateMachine(Request $request)
+    public function update(Request $request)
     {
         $request = $request->json();
 
@@ -89,7 +89,7 @@ class MachineController extends Controller
 
     }
 
-    public function deleteMachine($id)
+    public function delete($id)
     {
         if (!Company::exists('machines', ['id' => intval($id)])){
             $result['status'] = 409;
@@ -102,10 +102,21 @@ class MachineController extends Controller
         return response()->json($result);
     }
 
-    public function infoMachine($id)
+    public function info($id)
     {
-        $result['data']['machine'] = DB::table('machines')->leftJoin('companies', 'companies.id', '=', 'machines.company_id')->select('machines.*', 'companies.name')->where('machines.id', '=', intval($id))->get();
+        $result['data']['machine'] = DB::table('machines')->leftJoin('companies', 'companies.id', '=', 'machines.company_id')->select('machines.*', 'companies.name')->where('machines.id', '=', intval($id))->first();
         $result['status'] = 200;
+        return response()->json($result);
+    }
+
+    public function searchBrandName(Request $request)
+    {
+
+        $q = $request->get('q');
+
+        $result['data'] = DB::table('brands')->select('id', 'name')->where('name', 'LIKE', "%$q%")->get();
+        $result['status'] = 200;
+
         return response()->json($result);
     }
 

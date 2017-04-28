@@ -117,19 +117,30 @@ class MeetingController extends Controller
         $result['data']['meeting'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
         leftJoin('users', 'meetings.user_id', '=', 'users.id')->
         leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
-        select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as users_first_name', 'users.last_name as users_last_name')->
+        select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')->
         where('meetings.id', '=', intval($id))->first();
         $result['status'] = 200;
         return response()->json($result);
     }
 
-    public function getReminders($id)
+    public function getMeetingsList(Request $request)
     {
         $result['data']['meetings'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
         leftJoin('users', 'meetings.user_id', '=', 'users.id')->
         leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
-        select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as users_first_name', 'users.last_name as users_last_name')->
-        where('meetings.id', '=', intval($id))->where(DB::raw("DATEDIFF(meeting_date, NOW())"), '<=', 3)->get();
+        select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')->
+        where('meetings.id', '=', intval($request->input('user_id')))->get();
+        $result['status'] = 200;
+        return response()->json($result);
+    }
+
+    public function getReminders(Request $request)
+    {
+        $result['data']['reminders'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
+        leftJoin('users', 'meetings.user_id', '=', 'users.id')->
+        leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
+        select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')->
+        where('users.id', '=', intval($request->input('user_id')))->where(DB::raw("DATEDIFF(meeting_date, NOW())"), '<=', 3)->get();
         $result['status'] = 200;
         return response()->json($result);
     }

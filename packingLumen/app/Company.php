@@ -65,4 +65,9 @@ class Company extends Model
         return $workers;
     }
 
+    public function getMachines()
+    {
+        $machines = DB::table('machines')->select('*')->where('company_id', '=', $this->id)->get();
+        return $machines;
+    }
 }

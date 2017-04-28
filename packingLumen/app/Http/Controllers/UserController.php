@@ -32,10 +32,8 @@ class UserController extends Controller
 
     public function login(Request $request){
 
-//        var_dump($request->json()->has('email'));
-//        var_dump($request);
-
         $request = $request->json();
+
         if ($request->has('email') && $request->has('password')) {
 
 

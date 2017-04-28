@@ -60,8 +60,7 @@
       //POST: /searchUser
       //status, first_name, last_name, email, password, mobile_phone, office_phone, user_id, api_token
       "status": [200, 405, 401],
-      "data":
-        {
+      "data": {
           "users": [
             {
               "id": 2,
@@ -187,6 +186,26 @@
             "created_at": "2017-04-24 00:00:00",
             "updated_at": "2017-04-24 00:00:00"
           }
+        ],
+        "machines": [
+          {
+            "id": 1,
+            "company_id": 3,
+            "brand": "ABB",
+            "model": "abc-02",
+            "note": "don't touch!",
+            "created_at": "2017-04-24 00:00:00",
+            "updated_at": "2017-04-24 00:00:00"
+          },
+          {
+            "id": 2,
+            "company_id": 3,
+            "brand": "Emerson",
+            "model": "emr-22",
+            "note": "don't touch this also!",
+            "created_at": "2017-04-24 15:45:36",
+            "updated_at": "2017-04-24 15:45:36"
+          }
         ]
       }
     },
@@ -272,6 +291,180 @@
         }
       }
 
+    },
+    {
+      //POST: /addMachine
+      //user_id, api_token, company_id, brand, model, note
+      "status": [200, 405, 402, 401]
+    },
+    {
+      //POST: /updateMachine
+      //user_id, api_token, company_id, brand, model, note
+      "status": [200, 405, 409, 401]
+    },
+    {
+      //POST: /deleteMachine/{id}?user_id=&api_tokem
+      "status": [200, 409, 401]
+    },
+    {
+      //GET: /getMachine/{id}?user_id=&api_token=
+      "status": [200, 401],
+      "data": {
+        "machine": {
+          "id": 1,
+          "company_id": 3,
+          "brand": "ABB",
+          "model": "abc-02",
+          "note": "don't touch!",
+          "created_at": "2017-04-24 00:00:00",
+          "updated_at": "2017-04-24 00:00:00",
+          "name": "BHOS"
+        }
+      }
+    },
+    {
+      //POST: /addNote
+      //user_id, api_token, company_id, note
+      "status": [200, 405, 402, 401]
+    },
+    {
+      //POST: /updateNote
+      //user_id, api_token, company_id, note
+      "status": [200, 405, 409, 401]
+    },
+    {
+      //POST: /deleteNote/{id}?user_id=&api_token
+      "status": [200, 409, 401]
+    },
+    {
+      //GET: /getNote/{id}?user_id=&api_token=
+      "status": [200, 401],
+      "data": {
+        "note": {
+            "id": 1,
+            "note": "maa lezet elemir bu.",
+            "user_id": 1,
+            "company_id": 1,
+            "created_at": "2017-04-28 21:58:31",
+            "updated_at": "2017-04-28 21:58:31",
+            "company_name": "Baku Holding",
+            "user_first_name": "Shamil",
+            "user_last_name": "Omarov"
+          }
+
+      }
+    },
+    {
+      //POST: /addMeeting
+      //user_id, api_token, company_id, worker_id, meeting_date, organiser, note
+      "status": [200, 405, 402, 401]
+    },
+    {
+      //POST: /updateMeeting
+      //user_id, api_token, company_id, worker_id, meeting_date, organiser, note
+      "status": [200, 405, 409, 401]
+    },
+    {
+      //POST: /deleteMeeting/{id}?user_id=&api_token
+      "status": [200, 409, 401]
+    },
+    {
+      //GET: /getMeeting/{id}?user_id=&api_token=
+      "status": [200, 401],
+      "data": {
+        "meeting": {
+          "id": 1,
+          "note": "maa lezet elemir bu.",
+          "user_id": 1,
+          "company_id": 1,
+          "worker_id": 2,
+          "meeting_date": "2017-05-01",
+          "organiser": "organiser",
+          "created_at": "2017-04-28 21:58:31",
+          "updated_at": "2017-04-28 21:58:31",
+          "company_name": "Baku Holding",
+          "user_first_name": "Shamil",
+          "user_last_name": "Omarov",
+          "worker_first_name": "Abdulla",
+          "worker_last_name": "Abadov"
+        }
+
+      }
+    },
+    {
+      //GET: /getMeetingsList?user_id=&api_token=
+      "status": [200, 401],
+      "data": {
+        "meeting": [
+          {
+          "id": 1,
+          "note": "maa lezet elemir bu.",
+          "user_id": 1,
+          "company_id": 1,
+          "worker_id": 2,
+          "meeting_date": "2017-05-01",
+          "organiser": "organiser",
+          "created_at": "2017-04-28 21:58:31",
+          "updated_at": "2017-04-28 21:58:31",
+          "company_name": "Baku Holding",
+          "user_first_name": "Shamil",
+          "user_last_name": "Omarov",
+          "worker_first_name": "Abdulla",
+          "worker_last_name": "Abadov"
+        }
+        ]
+      }
+    },
+    {
+      //GET: /getReminders?user_id=&api_token=
+      "status": [200, 401],
+      "data": {
+        "reminders": [
+          {
+          "id": 1,
+          "note": "maa lezet elemir bu.",
+          "user_id": 1,
+          "company_id": 1,
+          "worker_id": 2,
+          "meeting_date": "2017-05-01",
+          "organiser": "organiser",
+          "created_at": "2017-04-28 21:58:31",
+          "updated_at": "2017-04-28 21:58:31",
+          "company_name": "Baku Holding",
+          "user_first_name": "Shamil",
+          "user_last_name": "Omarov",
+          "worker_first_name": "Abdulla",
+          "worker_last_name": "Abadov"
+        }
+        ]
+      }
+    },
+    {
+      //GET: /searchBrandName?user_id&api_token=?q=
+      "status": [200, 401],
+      "data":[
+        {
+          "id": 1,
+          "name": "ABB"
+        },
+        {
+          //...
+        }
+      ]
+    },
+    {
+      //GET: /searchWorkerName?user_id&api_token=?q=
+      "status": [200, 401],
+      "data":[
+        {
+          "id": 1,
+          "first_name": "FirstName",
+          "last_name": "LastName"
+        },
+        {
+          //...
+        }
+      ]
     }
   ]
 }

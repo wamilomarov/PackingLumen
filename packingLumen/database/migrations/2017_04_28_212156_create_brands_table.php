@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMachinesTable extends Migration
+class CreateBrandsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class CreateMachinesTable extends Migration
      */
     public function up()
     {
-        Schema::create('machines', function (Blueprint $table) {
+        Schema::create('brands', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id');
-            $table->integer('brand_id');
-            $table->string('model');
-            $table->text('note')->nullable();
+            $table->string('name');
             $table->timestamps();
         });
     }
@@ -30,6 +27,6 @@ class CreateMachinesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('machines');
+        Schema::dropIfExists('brands');
     }
 }

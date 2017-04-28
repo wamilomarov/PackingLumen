@@ -80,9 +80,15 @@ $app->get('/deleteMeeting/{id}', 'MeetingController@delete');
 
 $app->get('/getMeeting/{id}', 'MeetingController@info');
 
-$app->get('/getReminders/{id}', 'MeetingController@getReminders');
+$app->get('/getReminders', 'MeetingController@getReminders');
+
+$app->get('/getMeetingsList', 'MeetingController@getMeetingList');
 
 
+
+$app->get('/searchBrandName', 'MachineController@searchBrandName');
+
+$app->get('/searchWorkerName', 'WorkerController@searchWorkerName');
 
 
 $app->post('/info', ['middleware' => 'auth', 'uses' => 'Controller@info']);

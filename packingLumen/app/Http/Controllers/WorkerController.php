@@ -178,4 +178,12 @@ class WorkerController extends Controller
 
         return response()->json($result);
     }
+
+
+    public function searchWorkerName(Request $request)
+    {
+        $q = $request->get('q');
+
+        return DB::table('workers')->select('id', 'first_name', 'last_name')->where('first_name', 'LIKE', "%$q%")->orWhere('last_name', 'LIKE', "%$q%")->get();
+    }
 }

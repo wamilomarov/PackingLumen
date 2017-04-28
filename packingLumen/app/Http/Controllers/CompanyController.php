@@ -119,6 +119,7 @@ class CompanyController extends Controller
         $result['data']['company'] = $company;
         $result['data']['notes'] = $company->getNotes();
         $result['data']['workers'] = $company->getWorkers();
+        $result['data']['machines'] = $company->getMachines();
         $result['status'] = 200;
         return response()->json($result);
     }

@@ -107,8 +107,8 @@ class CompanyNoteController extends Controller
     {
         $result['data']['note'] = DB::table('company_notes')->leftJoin('companies', 'companies.id', '=', 'company_notes.company_id')->
         leftJoin('users', 'company_notes.user_id', '=', 'users.id')->
-        select('company_notes.*', 'companies.name as company_name', 'users.first_name as users_first_name', 'users.last_name as users_last_name')->
-        where('company_notes.id', '=', intval($id))->get();
+        select('company_notes.*', 'companies.name as company_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')->
+        where('company_notes.id', '=', intval($id))->first();
         $result['status'] = 200;
         return response()->json($result);
     }
