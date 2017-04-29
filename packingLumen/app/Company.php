@@ -55,7 +55,7 @@ class Company extends Model
     public function getNotes()
     {
         $notes = DB::table('company_notes')->leftJoin('users', 'users.id', '=', 'company_notes.user_id')->
-        select('company_notes.*', 'users.last_name as user_last_name', 'users.first_name as user_first_name')->where('company_notes.company_id', '=', $this->id)->get();
+        select('company_notes.*', 'users.last_name as user_last_name', 'users.first_name as user_first_name')->where('company_notes.company_id', '=', $this->id)->orderBy('id', 'desc')->get();
         return $notes;
     }
 
@@ -67,7 +67,7 @@ class Company extends Model
 
     public function getMachines()
     {
-        $machines = DB::table('machines')->select('*')->where('company_id', '=', $this->id)->get();
+        $machines = DB::table('machines')->leftJoin('brands', 'brands.id', '=', 'machines.brand_id')->select('machines.*', 'brands.name as brand_name')->where('company_id', '=', $this->id)->get();
         return $machines;
     }
 }

@@ -133,6 +133,16 @@ class CompanyController extends Controller
 
     public function search(Request $request)
     {
+        $q = $request->input('q');
+        $response['status'] = 200;
+        $response['data']['companies'] = DB::table('companies')->select('*')->where('name', 'LIKE', "%$q%")->
+            orWhere('address', 'LIKE', "%$q%")->orWhere('phone', 'LIKE', "%$q%")->orWhere('email', 'LIKE', "%$q%")
+                ->orWhere('website', 'LIKE', "%$q%")->paginate(30);
+        return response()->json($response);
+    }
+
+    public function searchByFields(Request $request)
+    {
         $request = $request->json();
 
         $companies = DB::table('companies')->select('id', 'name', 'phone', 'email', 'address', 'workers_count');

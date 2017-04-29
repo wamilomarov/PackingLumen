@@ -94,6 +94,21 @@
 
     },
     {
+      //GET: /getUserStatuses?user_id=&api_token=
+      "status":[200, 401],
+      "data":{
+        "statuses":[
+          {
+            "id": 1,
+            "name": "Admin"
+          },
+          {
+            //...
+          }
+        ]
+      }
+    },
+    {
       //POST: /registerCompany
       //user_id, api_token, name, email, address, phone, website, workers_count(optional)
       "status": [200, 405, 410, 401]
@@ -108,20 +123,32 @@
       "status": [200, 409, 401]
     },
     {
-      //POST: /searchCompany
-      //name, email, address, phone, website, workers_count(all optional, at leas one should exist), user_id, api_token
-      "status": [200, 405, 409, 401],
+      //GET: /searchCompany?user_id=&api_token=&q=
+      "status": [200, 401],
       "data": {
-        "companies": [
-          {
-            "id": 3,
-            "name": "BHOS",
-            "phone": "4352345",
-            "email": "bhos@email.com",
-            "address": "Khojali",
-            "workers_count": 0
-          }
-        ]
+        "companies": {
+          "total": 1,
+          "per_page": 30,
+          "current_page": 1,
+          "last_page": 1,
+          "next_page_url": null,
+          "prev_page_url": null,
+          "from": 1,
+          "to": 1,
+          "data": [
+            {
+              "id": 1,
+              "name": "Baku Holding",
+              "address": "Baku",
+              "phone": "354651",
+              "email": "email@email.com",
+              "website": "baku.com",
+              "workers_count": 0,
+              "created_at": "2017-04-28 21:29:48",
+              "updated_at": "2017-04-28 21:29:48"
+            }
+          ]
+        }
       }
     },
     {
@@ -247,28 +274,47 @@
       "status": [200, 409, 401]
     },
     {
-      //POST: /searchWorker
-      //position, company_id, first_name, last_name, email, mobile_phone, office_phone, user_id, api_token
-      "status": [200, 405, 401],
+      //GET: /searchWorker?user_id=&api_token=&company_id=&q= (company_id is optional)
+      "status": [200, 401],
       "data": {
-        "workers": [
-          {
-            "id": 1,
-            "company_id": 3,
-            "first_name": "Shamil",
-            "last_name": "Omarov",
-            "position": "rektor",
-            "mobile_phone": "245415",
-            "office_phone": "351651",
-            "email": "email@email.com",
-            "created_at": "2017-04-24 00:00:00",
-            "updated_at": "2017-04-24 00:00:00",
-            "company_name": "BHOS"
-          },
-          {
-            //...
-          }
-        ]
+        "workers": {
+          "total": 2,
+          "per_page": 30,
+          "current_page": 1,
+          "last_page": 1,
+          "next_page_url": null,
+          "prev_page_url": null,
+          "from": 1,
+          "to": 2,
+          "data": [
+            {
+              "id": 2,
+              "company_id": 1,
+              "first_name": "Karim",
+              "last_name": "Karimov",
+              "position": "Director",
+              "mobile_phone": "(123) 123-4324",
+              "office_phone": "(324) 234-2332",
+              "email": "karim@test.com",
+              "created_at": "2017-04-29 06:28:41",
+              "updated_at": "2017-04-29 06:28:41",
+              "company_name": "Baku Holding"
+            },
+            {
+              "id": 1,
+              "company_id": 3,
+              "first_name": "Karim",
+              "last_name": "Karimov",
+              "position": "prorektor",
+              "mobile_phone": "785482",
+              "office_phone": "7854785",
+              "email": "karim@email.com",
+              "created_at": "2017-04-28 21:30:53",
+              "updated_at": "2017-04-28 21:30:53",
+              "company_name": "sdfadsa"
+            }
+          ]
+        }
       }
     },
     {
@@ -294,7 +340,7 @@
     },
     {
       //POST: /addMachine
-      //user_id, api_token, company_id, brand, model, note
+      //user_id, api_token, company_id, brand_id, model, note
       "status": [200, 405, 402, 401]
     },
     {
@@ -392,7 +438,7 @@
       }
     },
     {
-      //GET: /getMeetingsList?user_id=&api_token=
+      //GET: /getMeetings?user_id=&api_token=
       "status": [200, 401],
       "data": {
         "meeting": [
@@ -442,15 +488,38 @@
     {
       //GET: /searchBrandName?user_id&api_token=?q=
       "status": [200, 401],
-      "data":[
-        {
-          "id": 1,
-          "name": "ABB"
-        },
-        {
-          //...
-        }
-      ]
+      "data":{
+        "brands":[
+          {
+            "id": 1,
+            "name": "ABB"
+          },
+          {
+            //...
+          }
+        ]
+      }
+    },
+    {
+      //POST: /addBrand
+      //user_id, api_token, name
+      "status": [200, 401]
+    },
+    {
+      //GET: /getBrands?user_id=&api_token=
+      "status": [200, 401],
+      "data":{
+        "brands":[
+          {
+            "id": 1,
+            "name": "ABB"
+          },
+          {
+            //...
+          }
+        ]
+      }
+
     },
     {
       //GET: /searchWorkerName?user_id&api_token=?q=

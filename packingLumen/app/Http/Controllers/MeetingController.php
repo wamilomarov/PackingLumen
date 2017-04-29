@@ -38,7 +38,7 @@ class MeetingController extends Controller
 
             $meeting = new Meeting($request->all());
 
-            if($meeting){
+            if($meeting->save()){
                 $result['status'] = 200;
             } else {
                 $result['status'] = 402;
@@ -123,13 +123,21 @@ class MeetingController extends Controller
         return response()->json($result);
     }
 
-    public function getMeetingsList(Request $request)
+    public function getMeetings(Request $request)
     {
+
         $result['data']['meetings'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
         leftJoin('users', 'meetings.user_id', '=', 'users.id')->
         leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
-        select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')->
-        where('meetings.id', '=', intval($request->input('user_id')))->get();
+        select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')
+            ->get();
+
+
+//        $result['data']['meetings'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
+//        leftJoin('users', 'meetings.user_id', '=', 'users.id')->
+//        leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
+//        select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')->
+//        where('meetings.user_id', '=', intval($request->input('user_id')))->get();
         $result['status'] = 200;
         return response()->json($result);
     }
@@ -140,7 +148,7 @@ class MeetingController extends Controller
         leftJoin('users', 'meetings.user_id', '=', 'users.id')->
         leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
         select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')->
-        where('users.id', '=', intval($request->input('user_id')))->where(DB::raw("DATEDIFF(meeting_date, NOW())"), '<=', 3)->get();
+        where('meetings.user_id', '=', intval($request->input('user_id')))->where(DB::raw("DATEDIFF(meeting_date, NOW())"), '<=', 3)->get();
         $result['status'] = 200;
         return response()->json($result);
     }

@@ -19,6 +19,8 @@ $app->post('/login', 'UserController@login');
 
 $app->post('/logout', 'UserController@logout');
 
+$app->get('/getUserStatuses', 'UserController@getUserStatuses');
+
 $app->post('/registerUser', 'UserController@register');
 
 $app->post('/updateUser', 'UserController@update');
@@ -36,7 +38,7 @@ $app->post('/updateCompany', 'CompanyController@update');
 
 $app->get('/deleteCompany/{id}', 'CompanyController@delete');
 
-$app->post('/searchCompany', 'CompanyController@search');
+$app->get('/searchCompany', 'CompanyController@search');
 
 $app->get('/getCompany/{id}', 'CompanyController@info');
 
@@ -49,7 +51,7 @@ $app->post('/updateWorker', 'WorkerController@update');
 
 $app->get('/deleteWorker/{id}', 'WorkerController@delete');
 
-$app->post('/searchWorker', 'WorkerController@search');
+$app->get('/searchWorker', 'WorkerController@search');
 
 $app->get('/getWorker/{id}', 'WorkerController@info');
 
@@ -82,13 +84,17 @@ $app->get('/getMeeting/{id}', 'MeetingController@info');
 
 $app->get('/getReminders', 'MeetingController@getReminders');
 
-$app->get('/getMeetingsList', 'MeetingController@getMeetingList');
+$app->get('/getMeetings', 'MeetingController@getMeetings');
 
+$app->post('/addBrand', 'MachineController@addBrand');
 
+$app->get('/getBrands', 'MachineController@getBrands');
 
 $app->get('/searchBrandName', 'MachineController@searchBrandName');
 
 $app->get('/searchWorkerName', 'WorkerController@searchWorkerName');
+
+
 
 
 $app->post('/info', ['middleware' => 'auth', 'uses' => 'Controller@info']);

@@ -104,7 +104,7 @@ class MachineController extends Controller
 
     public function info($id)
     {
-        $result['data']['machine'] = DB::table('machines')->leftJoin('companies', 'companies.id', '=', 'machines.company_id')->select('machines.*', 'companies.name')->where('machines.id', '=', intval($id))->first();
+        $result['data']['machine'] = DB::table('machines')->leftJoin('companies', 'companies.id', '=', 'machines.company_id')->leftJoin('brands', 'brands.id', '=', 'machines.brand_id')->select('machines.*', 'companies.name', 'brands.name as brand_name')->where('machines.id', '=', intval($id))->first();
         $result['status'] = 200;
         return response()->json($result);
     }
@@ -114,7 +114,25 @@ class MachineController extends Controller
 
         $q = $request->get('q');
 
-        $result['data'] = DB::table('brands')->select('id', 'name')->where('name', 'LIKE', "%$q%")->get();
+        $result['data']['brands'] = DB::table('brands')->select('id', 'name')->where('name', 'LIKE', "%$q%")->get();
+        $result['status'] = 200;
+
+        return response()->json($result);
+    }
+
+    public function addBrand(Request $request)
+    {
+        $request = $request->json();
+        $insert = ['name' => $request->get('name')];
+        DB::table('brands')->insert($insert);
+        $result['status'] = 200;
+
+        return response()->json($result);
+    }
+
+    public function getBrands()
+    {
+        $result['data']['brands'] = DB::table('brands')->select('id', 'name')->get();
         $result['status'] = 200;
 
         return response()->json($result);

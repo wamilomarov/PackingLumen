@@ -20,7 +20,7 @@ class Machine extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id', 'brand', 'model', 'note'
+        'company_id', 'brand_id', 'model', 'note'
     ];
 
     /**

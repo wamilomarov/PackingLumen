@@ -69,6 +69,15 @@ class UserController extends Controller
         return response()->json($result);
     }
 
+    public function getUserStatuses()
+    {
+        $result['status'] = 200;
+        $result['data']['statuses'] = [
+            ['id' => 1, 'name' => 'Admin'],
+            ['id' => 2, 'name' => 'Designer'],
+            ['id' => 3, 'name' => 'Sales manager']];
+    }
+
     public function register(Request $request){
         $request = $request->json();
 

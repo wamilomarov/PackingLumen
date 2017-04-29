@@ -126,11 +126,11 @@ class WorkerController extends Controller
         return response()->json($result);
     }
 
-    public function search(Request $request)
+    public function searchByFields(Request $request)
     {
         $request = $request->json();
 
-        $workers = DB::table('workers')->leftJoin('companies', 'companies.id', '=', 'workers.company_id')->select('workers.*', 'companies.name as company_name');
+        $workers = DB::table('workers')->leftJoin('companies', 'companies.id', '=', 'workers.company_id')->select('workers.*', 'companies.name as company_name')->get();
         $count = 0;
 
         if ($request->has('company_name')){
@@ -179,6 +179,22 @@ class WorkerController extends Controller
         return response()->json($result);
     }
 
+    public function search(Request $request)
+    {
+        $q = $request->input('q');
+        $response['status'] = 200;
+        $workers = DB::table('workers')->leftJoin('companies', 'companies.id', '=', 'workers.company_id')
+            ->select('workers.*', 'companies.name as company_name')->where('workers.first_name', 'LIKE', "%$q%")
+            ->where('workers.last_name', 'LIKE', "%$q%")->orWhere('workers.position', 'LIKE', "%$q%")->orWhere('workers.mobile_phone', 'LIKE', "%$q%")
+            ->orWhere('workers.office_phone', 'LIKE', "%$q%")->orWhere('workers.email', 'LIKE', "%$q%");
+
+        if ($request->has('company_id')){
+            $workers = $workers->where('workers.company_id', intval($request->input('company_id')));
+        }
+
+        $response['data']['workers'] = $workers->paginate(30);
+        return response()->json($response);
+    }
 
     public function searchWorkerName(Request $request)
     {
