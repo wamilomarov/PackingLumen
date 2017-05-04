@@ -6,7 +6,7 @@
     "303": "Already done",
     "401": "User is not logged in. Unauthenticated",
     "402": "Unknown error",
-    "403": "Your activity in this place has suspended.",
+    "403": "You have not access to this action",
     "405": "Wrong request. Something is missing in request. Wrong request fields",
     "406": "Email is already registered",
     "407": "Credentials incorrect",
@@ -44,7 +44,9 @@
     },
     {
       //POST: /registerUser
-      //status(optional), first_name, last_name, email, password, mobile_phone, office_phone, user_id, api_token
+      //status(optional), first_name, last_name, email, password, mobile_phone, office_phone,
+      //company_read, company_write, machines_read, machines_write, workers_read, workers_write,
+      //notes_read, notes_write, meetings_read, meetings_write, user_id, api_token
       "status": [200, 402, 405, 401]
     },
     {

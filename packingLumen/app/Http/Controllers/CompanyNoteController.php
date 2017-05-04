@@ -31,6 +31,11 @@ class CompanyNoteController extends Controller
 
     public function add(Request $request)
     {
+        if(!Auth::user()->hasAccess(8)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $request = $request->json();
 
         if ($request->has('company_id') && $request->has('user_id') && $request->has('note')) {
@@ -52,6 +57,10 @@ class CompanyNoteController extends Controller
 
     public function update(Request $request)
     {
+        if(!Auth::user()->hasAccess(8)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
         $request = $request->json();
 
         if (!Company::exists('company_notes', ['id' => $request->get('updated_note_id')])){
@@ -92,6 +101,11 @@ class CompanyNoteController extends Controller
 
     public function delete($id)
     {
+        if(!Auth::user()->hasAccess(8)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         if (!Company::exists('company_notes', ['id' => intval($id)])){
             $result['status'] = 409;
             return response()->json($result);
@@ -105,6 +119,11 @@ class CompanyNoteController extends Controller
 
     public function info($id)
     {
+        if(!Auth::user()->hasAccess(7)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $result['data']['note'] = DB::table('company_notes')->leftJoin('companies', 'companies.id', '=', 'company_notes.company_id')->
         leftJoin('users', 'company_notes.user_id', '=', 'users.id')->
         select('company_notes.*', 'companies.name as company_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')->

@@ -31,6 +31,11 @@ class MeetingController extends Controller
 
     public function add(Request $request)
     {
+        if(!Auth::user()->hasAccess(10)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $request = $request->json();
 
         if ($request->has('company_id') && $request->has('user_id') && $request->has('worker_id') &&
@@ -53,6 +58,11 @@ class MeetingController extends Controller
 
     public function update(Request $request)
     {
+        if(!Auth::user()->hasAccess(10)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $request = $request->json();
 
         if (!Company::exists('meetings', ['id' => $request->get('updated_meeting_id')])){
@@ -101,6 +111,11 @@ class MeetingController extends Controller
 
     public function delete($id)
     {
+        if(!Auth::user()->hasAccess(10)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         if (!Company::exists('meetings', ['id' => intval($id)])){
             $result['status'] = 409;
             return response()->json($result);
@@ -114,6 +129,11 @@ class MeetingController extends Controller
 
     public function info($id)
     {
+        if(!Auth::user()->hasAccess(9)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $result['data']['meeting'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
         leftJoin('users', 'meetings.user_id', '=', 'users.id')->
         leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
@@ -123,8 +143,12 @@ class MeetingController extends Controller
         return response()->json($result);
     }
 
-    public function getMeetings(Request $request)
+    public function getMeetings()
     {
+        if(!Auth::user()->hasAccess(9)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
 
         $result['data']['meetings'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
         leftJoin('users', 'meetings.user_id', '=', 'users.id')->
@@ -144,6 +168,11 @@ class MeetingController extends Controller
 
     public function getReminders(Request $request)
     {
+        if(!Auth::user()->hasAccess(9)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $result['data']['reminders'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
         leftJoin('users', 'meetings.user_id', '=', 'users.id')->
         leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->

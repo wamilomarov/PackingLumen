@@ -99,7 +99,41 @@ class UserController extends Controller
                 if ($request->has('status')){
                     $user->status=$request->get('status');
                 }
+
+                $access = [];
+                if ($request->get('company_read') == TRUE){
+                    array_push($access, 1);
+                }
+                if ($request->get('company_write') == TRUE){
+                    array_push($access, 2);
+                }
+                if ($request->get('machines_read') == TRUE){
+                    array_push($access, 3);
+                }
+                if ($request->get('machines_write') == TRUE){
+                    array_push($access, 4);
+                }
+                if ($request->get('workers_read') == TRUE){
+                    array_push($access, 5);
+                }
+                if ($request->get('workers_write') == TRUE){
+                    array_push($access, 6);
+                }
+                if ($request->get('notes_read') == TRUE){
+                    array_push($access, 7);
+                }
+                if ($request->get('notes_write') == TRUE){
+                    array_push($access, 8);
+                }
+                if ($request->get('meetings_read') == TRUE){
+                    array_push($access, 9);
+                }
+                if ($request->get('meetings_write') == TRUE){
+                    array_push($access, 10);
+                }
+
                 if($user->save()){
+                    DB::table('users_accesses')->insert($access);
                     $result['status'] = 200;
                 } else {
                     $result['status'] = 402;

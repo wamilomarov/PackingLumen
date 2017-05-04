@@ -17,82 +17,88 @@ $app->get('/', function () use ($app) {
 
 $app->post('/login', 'UserController@login');
 
-$app->post('/logout', 'UserController@logout');
 
-$app->get('/getUserStatuses', 'UserController@getUserStatuses');
-
-$app->post('/registerUser', 'UserController@register');
-
-$app->post('/updateUser', 'UserController@update');
-
-$app->get('/deleteUser/{id}', 'UserController@delete');
-
-$app->post('/searchUser', 'UserController@search');
-
-$app->get('/getUser/{id}', ['middleware' => 'auth', 'uses' => 'UserController@info']);
+$app->group(['middleware' => 'auth'], function () use ($app) {
 
 
-$app->post('/registerCompany', 'CompanyController@create');
+    $app->post('/logout', 'UserController@logout');
 
-$app->post('/updateCompany', 'CompanyController@update');
+    $app->get('/getUserStatuses', [ 'middleware' => 'admin', 'uses' => 'UserController@getUserStatuses']);
 
-$app->get('/deleteCompany/{id}', 'CompanyController@delete');
+    $app->post('/registerUser', [ 'middleware' => 'admin', 'uses' => 'UserController@register']);
 
-$app->get('/searchCompany', 'CompanyController@search');
+    $app->post('/updateUser', [ 'middleware' => 'admin', 'uses' => 'UserController@update']);
 
-$app->get('/getCompany/{id}', 'CompanyController@info');
+    $app->get('/deleteUser/{id}', [ 'middleware' => 'admin', 'uses' => 'UserController@delete']);
 
-$app->get('/getCompanies', ['middleware' => 'auth', 'uses' => 'CompanyController@getCompaniesList']);
+    $app->post('/searchUser', [ 'middleware' => 'admin', 'uses' => 'UserController@search']);
 
-
-$app->post('/registerWorker', 'WorkerController@register');
-
-$app->post('/updateWorker', 'WorkerController@update');
-
-$app->get('/deleteWorker/{id}', 'WorkerController@delete');
-
-$app->get('/searchWorker', 'WorkerController@search');
-
-$app->get('/getWorker/{id}', 'WorkerController@info');
+    $app->get('/getUser/{id}', [ 'middleware' => 'admin', 'uses' => 'UserController@info']);
 
 
-$app->post('/addMachine', 'MachineController@add');
+    $app->post('/registerCompany', 'CompanyController@create');
 
-$app->post('/updateMachine', 'MachineController@update');
+    $app->post('/updateCompany', 'CompanyController@update');
 
-$app->get('/deleteMachine/{id}', 'MachineController@delete');
+    $app->get('/deleteCompany/{id}', 'CompanyController@delete');
 
-$app->get('/getMachine/{id}', 'MachineController@info');
+    $app->get('/searchCompany', 'CompanyController@search');
 
+    $app->get('/getCompany/{id}', 'CompanyController@info');
 
-$app->post('/addNote', 'CompanyNoteController@add');
-
-$app->post('/updateNote', 'CompanyNoteController@update');
-
-$app->get('/deleteNote/{id}', 'CompanyNoteController@delete');
-
-$app->get('/getNote/{id}', 'CompanyNoteController@info');
+    $app->get('/getCompanies', 'CompanyController@getCompaniesList');
 
 
-$app->post('/addMeeting', 'MeetingController@add');
+    $app->post('/registerWorker', 'WorkerController@register');
 
-$app->post('/updateMeeting', 'MeetingController@update');
+    $app->post('/updateWorker', 'WorkerController@update');
 
-$app->get('/deleteMeeting/{id}', 'MeetingController@delete');
+    $app->get('/deleteWorker/{id}', 'WorkerController@delete');
 
-$app->get('/getMeeting/{id}', 'MeetingController@info');
+    $app->get('/searchWorker', 'WorkerController@search');
 
-$app->get('/getReminders', 'MeetingController@getReminders');
+    $app->get('/getWorker/{id}', 'WorkerController@info');
 
-$app->get('/getMeetings', 'MeetingController@getMeetings');
 
-$app->post('/addBrand', 'MachineController@addBrand');
+    $app->post('/addMachine', 'MachineController@add');
 
-$app->get('/getBrands', 'MachineController@getBrands');
+    $app->post('/updateMachine', 'MachineController@update');
 
-$app->get('/searchBrandName', 'MachineController@searchBrandName');
+    $app->get('/deleteMachine/{id}', 'MachineController@delete');
 
-$app->get('/searchWorkerName', 'WorkerController@searchWorkerName');
+    $app->get('/getMachine/{id}', 'MachineController@info');
+
+
+    $app->post('/addNote', 'CompanyNoteController@add');
+
+    $app->post('/updateNote', 'CompanyNoteController@update');
+
+    $app->get('/deleteNote/{id}', 'CompanyNoteController@delete');
+
+    $app->get('/getNote/{id}', 'CompanyNoteController@info');
+
+
+    $app->post('/addMeeting', 'MeetingController@add');
+
+    $app->post('/updateMeeting', 'MeetingController@update');
+
+    $app->get('/deleteMeeting/{id}', 'MeetingController@delete');
+
+    $app->get('/getMeeting/{id}', 'MeetingController@info');
+
+    $app->get('/getReminders', 'MeetingController@getReminders');
+
+    $app->get('/getMeetings', 'MeetingController@getMeetings');
+
+    $app->post('/addBrand', [ 'middleware' => 'admin', 'uses' => 'MachineController@addBrand']);
+
+    $app->get('/getBrands', [ 'middleware' => 'admin', 'uses' => 'MachineController@getBrands']);
+
+    $app->get('/searchBrandName', [ 'middleware' => 'admin', 'uses' => 'MachineController@searchBrandName']);
+
+    $app->get('/searchWorkerName', 'WorkerController@searchWorkerName');
+
+});
 
 
 

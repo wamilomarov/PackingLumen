@@ -30,6 +30,11 @@ class CompanyController extends Controller
 
     public function create(Request $request)
     {
+        if(!Auth::user()->hasAccess(2)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $request = $request->json();
 
         if ($request->has('name') && $request->has('email') && $request->has('phone')){
@@ -50,6 +55,11 @@ class CompanyController extends Controller
 
     public function update(Request $request)
     {
+        if(!Auth::user()->hasAccess(2)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $request = $request->json();
 
         if (!Company::exists('companies', ['id' => $request->get('updated_company_id')])){
@@ -98,6 +108,11 @@ class CompanyController extends Controller
 
     public function delete($id)
     {
+        if(!Auth::user()->hasAccess(2)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         if (!Company::exists('companies', ['id' => intval($id)])){
             $result['status'] = 409;
             return response()->json($result);
@@ -115,17 +130,44 @@ class CompanyController extends Controller
 
     public function info($id)
     {
+        if(!Auth::user()->hasAccess(1)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
         $company = Company::find(intval($id));
         $result['data']['company'] = $company;
-        $result['data']['notes'] = $company->getNotes();
-        $result['data']['workers'] = $company->getWorkers();
-        $result['data']['machines'] = $company->getMachines();
+
+        if (Auth::user()->hasAccess(7)){
+            $result['data']['notes'] = $company->getNotes();
+        }
+        else{
+            $result['data']['notes'] = 403;
+        }
+
+        if (Auth::user()->hasAccess(5)){
+            $result['data']['workers'] = $company->getWorkers();
+        }
+        else{
+            $result['data']['workers'] = 403;
+        }
+
+        if (Auth::user()->hasAccess(3)){
+            $result['data']['machines'] = $company->getMachines();
+        }
+        else{
+            $result['data']['machines'] = 403;
+        }
+
         $result['status'] = 200;
         return response()->json($result);
     }
 
     public function getCompaniesList()
     {
+        if(!Auth::user()->hasAccess(1)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
         $response['status'] = 200;
         $response['data']['companies'] = DB::table('companies')->select('*')->paginate(30);
         return response()->json($response);
@@ -133,6 +175,10 @@ class CompanyController extends Controller
 
     public function search(Request $request)
     {
+        if(!Auth::user()->hasAccess(1)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
         $q = $request->input('q');
         $response['status'] = 200;
         $response['data']['companies'] = DB::table('companies')->select('*')->where('name', 'LIKE', "%$q%")->
@@ -143,6 +189,12 @@ class CompanyController extends Controller
 
     public function searchByFields(Request $request)
     {
+
+        if(!Auth::user()->hasAccess(1)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $request = $request->json();
 
         $companies = DB::table('companies')->select('id', 'name', 'phone', 'email', 'address', 'workers_count');

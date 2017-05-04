@@ -15,9 +15,12 @@ class CreateMeetingsTable extends Migration
     {
         Schema::create('meetings', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id');
-            $table->integer('worker_id');
-            $table->integer('user_id');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->integer('worker_id')->unsigned();
+            $table->foreign('worker_id')->references('id')->on('worker')->onDelete('cascade');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->date('meeting_date');
             $table->string('organiser')->nullable();
             $table->text('note')->nullable();

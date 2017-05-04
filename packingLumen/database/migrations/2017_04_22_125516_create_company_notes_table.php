@@ -16,8 +16,10 @@ class CreateCompanyNotesTable extends Migration
         Schema::create('company_notes', function (Blueprint $table) {
             $table->increments('id');
             $table->text('note');
-            $table->integer('user_id');
-            $table->integer('company_id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
             $table->timestamps();
         });
     }

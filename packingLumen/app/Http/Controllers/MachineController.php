@@ -30,6 +30,11 @@ class MachineController extends Controller
 
     public function add(Request $request)
     {
+        if(!Auth::user()->hasAccess(4)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $request = $request->json();
 
         if ($request->has('company_id') && $request->has('model') && $request->has('brand_id')) {
@@ -51,6 +56,11 @@ class MachineController extends Controller
 
     public function update(Request $request)
     {
+        if(!Auth::user()->hasAccess(4)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $request = $request->json();
 
         if (!Company::exists('machines', ['id' => $request->get('updated_machine_id')])){
@@ -91,6 +101,11 @@ class MachineController extends Controller
 
     public function delete($id)
     {
+        if(!Auth::user()->hasAccess(4)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         if (!Company::exists('machines', ['id' => intval($id)])){
             $result['status'] = 409;
             return response()->json($result);
@@ -104,7 +119,13 @@ class MachineController extends Controller
 
     public function info($id)
     {
-        $result['data']['machine'] = DB::table('machines')->leftJoin('companies', 'companies.id', '=', 'machines.company_id')->leftJoin('brands', 'brands.id', '=', 'machines.brand_id')->select('machines.*', 'companies.name', 'brands.name as brand_name')->where('machines.id', '=', intval($id))->first();
+        if(!Auth::user()->hasAccess(3)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+        $result['data']['machine'] = DB::table('machines')->leftJoin('companies', 'companies.id', '=', 'machines.company_id')
+            ->leftJoin('brands', 'brands.id', '=', 'machines.brand_id')->select('machines.*', 'companies.name', 'brands.name as brand_name')
+            ->where('machines.id', '=', intval($id))->first();
         $result['status'] = 200;
         return response()->json($result);
     }

@@ -30,6 +30,11 @@ class WorkerController extends Controller
 
     public function register(Request $request)
     {
+        if(!Auth::user()->hasAccess(6)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $request = $request->json();
 
         if ($request->has('company_id') && $request->has('position') && $request->has('email') && $request->has('first_name') &&
@@ -55,6 +60,11 @@ class WorkerController extends Controller
 
     public function update(Request $request)
     {
+        if(!Auth::user()->hasAccess(6)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $request = $request->json();
 
         if (!Company::exists('workers', ['id' => $request->get('updated_worker_id')])){
@@ -108,6 +118,11 @@ class WorkerController extends Controller
 
     public function delete($id)
     {
+        if(!Auth::user()->hasAccess(6)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         if (!Company::exists('workers', ['id' => intval($id)])){
             $result['status'] = 409;
             return response()->json($result);
@@ -121,6 +136,11 @@ class WorkerController extends Controller
 
     public function info($id)
     {
+        if(!Auth::user()->hasAccess(5)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $result['data']['worker'] = DB::table('workers')->leftJoin('companies', 'companies.id', '=', 'workers.company_id')->select('workers.*', 'companies.name as company_name')->where('workers.id', '=', intval($id))->first();
         $result['status'] = 200;
         return response()->json($result);
@@ -128,6 +148,11 @@ class WorkerController extends Controller
 
     public function searchByFields(Request $request)
     {
+        if(!Auth::user()->hasAccess(5)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $request = $request->json();
 
         $workers = DB::table('workers')->leftJoin('companies', 'companies.id', '=', 'workers.company_id')->select('workers.*', 'companies.name as company_name')->get();
@@ -181,6 +206,11 @@ class WorkerController extends Controller
 
     public function search(Request $request)
     {
+        if(!Auth::user()->hasAccess(5)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $q = $request->input('q');
         $response['status'] = 200;
         $workers = DB::table('workers')->leftJoin('companies', 'companies.id', '=', 'workers.company_id')
@@ -198,6 +228,11 @@ class WorkerController extends Controller
 
     public function searchWorkerName(Request $request)
     {
+        if(!Auth::user()->hasAccess(5)){
+            $result['status'] = 403;
+            return response()->json($result);
+        }
+
         $q = $request->get('q');
 
         return DB::table('workers')->select('id', 'first_name', 'last_name')->where('first_name', 'LIKE', "%$q%")->orWhere('last_name', 'LIKE', "%$q%")->get();

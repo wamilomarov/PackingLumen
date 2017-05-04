@@ -15,8 +15,10 @@ class CreateMachinesTable extends Migration
     {
         Schema::create('machines', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('company_id');
-            $table->integer('brand_id');
+            $table->integer('company_id')->unsigned();
+            $table->foreign('company_id')->references('id')->on('companies')->onDelete('cascade');
+            $table->integer('brand_id')->unsigned();
+            $table->foreign('brand_id')->references('id')->on('brands')->onDelete('cascade');
             $table->string('model');
             $table->text('note')->nullable();
             $table->timestamps();
