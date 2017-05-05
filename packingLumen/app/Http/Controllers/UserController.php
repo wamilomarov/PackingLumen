@@ -100,39 +100,40 @@ class UserController extends Controller
                     $user->status=$request->get('status');
                 }
 
-                $access = [];
-                if ($request->get('company_read') == TRUE){
-                    array_push($access, 1);
-                }
-                if ($request->get('company_write') == TRUE){
-                    array_push($access, 2);
-                }
-                if ($request->get('machines_read') == TRUE){
-                    array_push($access, 3);
-                }
-                if ($request->get('machines_write') == TRUE){
-                    array_push($access, 4);
-                }
-                if ($request->get('workers_read') == TRUE){
-                    array_push($access, 5);
-                }
-                if ($request->get('workers_write') == TRUE){
-                    array_push($access, 6);
-                }
-                if ($request->get('notes_read') == TRUE){
-                    array_push($access, 7);
-                }
-                if ($request->get('notes_write') == TRUE){
-                    array_push($access, 8);
-                }
-                if ($request->get('meetings_read') == TRUE){
-                    array_push($access, 9);
-                }
-                if ($request->get('meetings_write') == TRUE){
-                    array_push($access, 10);
-                }
-
                 if($user->save()){
+
+                    $access = [];
+                    if ($request->get('company_read') == TRUE){
+                        array_push($access, ['user_id' => $user->id, 'table' =>1]);
+                    }
+                    if ($request->get('company_write') == TRUE){
+                        array_push($access, ['user_id' => $user->id, 'table' =>2]);
+                    }
+                    if ($request->get('machines_read') == TRUE){
+                        array_push($access, ['user_id' => $user->id, 'table' =>3]);
+                    }
+                    if ($request->get('machines_write') == TRUE){
+                        array_push($access, ['user_id' => $user->id, 'table' =>4]);
+                    }
+                    if ($request->get('workers_read') == TRUE){
+                        array_push($access, ['user_id' => $user->id, 'table' =>5]);
+                    }
+                    if ($request->get('workers_write') == TRUE){
+                        array_push($access, ['user_id' => $user->id, 'table' =>6]);
+                    }
+                    if ($request->get('notes_read') == TRUE){
+                        array_push($access, ['user_id' => $user->id, 'table' =>7]);
+                    }
+                    if ($request->get('notes_write') == TRUE){
+                        array_push($access, ['user_id' => $user->id, 'table' =>8]);
+                    }
+                    if ($request->get('meetings_read') == TRUE){
+                        array_push($access, ['user_id' => $user->id, 'table' =>9]);
+                    }
+                    if ($request->get('meetings_write') == TRUE){
+                        array_push($access, ['user_id' => $user->id, 'table' =>10]);
+                    }
+
                     DB::table('users_accesses')->insert($access);
                     $result['status'] = 200;
                 } else {
@@ -182,6 +183,72 @@ class UserController extends Controller
         if ($request->has('office_phone')){
             $params['office_phone'] = $request->get('office_phone');
         }
+
+
+        $access = [];
+        if ($request->get('company_read') == TRUE){
+            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>1]);
+        }
+        else {
+            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
+        }
+        if ($request->get('company_write') == TRUE){
+            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>2]);
+        }
+        else {
+            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
+        }
+        if ($request->get('machines_read') == TRUE){
+            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>3]);
+        }
+        else {
+            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
+        }
+        if ($request->get('machines_write') == TRUE){
+            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>4]);
+        }
+        else {
+            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
+        }
+        if ($request->get('workers_read') == TRUE){
+            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>5]);
+        }
+        else {
+            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
+        }
+        if ($request->get('workers_write') == TRUE){
+            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>6]);
+        }
+        else {
+            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
+        }
+        if ($request->get('notes_read') == TRUE){
+            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>7]);
+        }
+        else {
+            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
+        }
+        if ($request->get('notes_write') == TRUE){
+            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>8]);
+        }
+        else {
+            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
+        }
+        if ($request->get('meetings_read') == TRUE){
+            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>9]);
+        }
+        else {
+            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
+        }
+        if ($request->get('meetings_write') == TRUE){
+            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>10]);
+        }
+        else {
+            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
+        }
+
+        DB::table('users_accesses')->insert($access);
+
 
 
         if (count($params) > 0){
