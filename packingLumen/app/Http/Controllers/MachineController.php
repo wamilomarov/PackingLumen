@@ -159,4 +159,11 @@ class MachineController extends Controller
         return response()->json($result);
     }
 
+    public function deleteBrand($id)
+    {
+        DB::table('brands')->where('id', '=', intval($id))->delete();
+        $result['status'] = 200;
+        return response()->json($result);
+    }
+
 }

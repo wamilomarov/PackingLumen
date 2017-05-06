@@ -42,6 +42,7 @@ class CompanyNoteController extends Controller
 
             $note = new CompanyNote($request->all());
             if($note->save()){
+
                 $result['status'] = 200;
             } else {
                 $result['status'] = 402;

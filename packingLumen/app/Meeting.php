@@ -20,7 +20,7 @@ class Meeting extends Model
      * @var array
      */
     protected $fillable = [
-        'company_id', 'worker_id', 'user_id', 'meeting_date', 'organiser', 'note'
+        'company_id', 'worker_id', 'meeting_user_id', 'meeting_date', 'organiser', 'note'
     ];
 
     /**

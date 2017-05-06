@@ -137,25 +137,32 @@ class CompanyController extends Controller
         $company = Company::find(intval($id));
         $result['data']['company'] = $company;
 
-        if (Auth::user()->hasAccess(7)){
+        if (Auth::user()->hasAccess('notes_read')){
             $result['data']['notes'] = $company->getNotes();
         }
         else{
-            $result['data']['notes'] = 403;
+            $result['data']['notes'] = null;
         }
 
-        if (Auth::user()->hasAccess(5)){
+        if (Auth::user()->hasAccess('workers_read')){
             $result['data']['workers'] = $company->getWorkers();
         }
         else{
-            $result['data']['workers'] = 403;
+            $result['data']['workers'] = null;
         }
 
-        if (Auth::user()->hasAccess(3)){
+        if (Auth::user()->hasAccess('machines_read')){
             $result['data']['machines'] = $company->getMachines();
         }
         else{
-            $result['data']['machines'] = 403;
+            $result['data']['machines'] = null;
+        }
+
+        if (Auth::user()->hasAccess('meetings_read')){
+            $result['data']['meetings'] = $company->getMeetings();
+        }
+        else{
+            $result['data']['meetings'] = null;
         }
 
         $result['status'] = 200;

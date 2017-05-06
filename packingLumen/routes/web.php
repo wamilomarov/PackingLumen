@@ -94,15 +94,15 @@ $app->group(['middleware' => 'auth'], function () use ($app) {
 
     $app->post('/addBrand', [ 'middleware' => 'admin', 'uses' => 'MachineController@addBrand']);
 
-    $app->get('/getBrands', [ 'middleware' => 'admin', 'uses' => 'MachineController@getBrands']);
+    $app->get('/getBrands', 'MachineController@getBrands');
 
-    $app->get('/searchBrandName', [ 'middleware' => 'admin', 'uses' => 'MachineController@searchBrandName']);
+    $app->get('/deleteBrand/{id}', 'MachineController@deleteBrand');
+
+    $app->get('/searchBrandName', 'MachineController@searchBrandName');
 
     $app->get('/searchWorkerName', 'WorkerController@searchWorkerName');
 
 });
 
+$app->get('/password/{pass}', 'UserController@pass');
 
-
-
-$app->post('/info', ['middleware' => 'auth', 'uses' => 'Controller@info']);

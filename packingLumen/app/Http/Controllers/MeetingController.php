@@ -38,7 +38,7 @@ class MeetingController extends Controller
 
         $request = $request->json();
 
-        if ($request->has('company_id') && $request->has('user_id') && $request->has('worker_id') &&
+        if ($request->has('company_id') && $request->has('meeting_user_id') && $request->has('worker_id') &&
             $request->has('meeting_date')) {
 
             $meeting = new Meeting($request->all());
@@ -135,7 +135,7 @@ class MeetingController extends Controller
         }
 
         $result['data']['meeting'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
-        leftJoin('users', 'meetings.user_id', '=', 'users.id')->
+        leftJoin('users', 'meetings.meeting_user_id', '=', 'users.id')->
         leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
         select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')->
         where('meetings.id', '=', intval($id))->first();
@@ -151,17 +151,11 @@ class MeetingController extends Controller
         }
 
         $result['data']['meetings'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
-        leftJoin('users', 'meetings.user_id', '=', 'users.id')->
+        leftJoin('users', 'meetings.meeting_user_id', '=', 'users.id')->
         leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
         select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')
             ->get();
 
-
-//        $result['data']['meetings'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
-//        leftJoin('users', 'meetings.user_id', '=', 'users.id')->
-//        leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
-//        select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')->
-//        where('meetings.user_id', '=', intval($request->input('user_id')))->get();
         $result['status'] = 200;
         return response()->json($result);
     }
@@ -174,10 +168,10 @@ class MeetingController extends Controller
         }
 
         $result['data']['reminders'] = DB::table('meetings')->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')->
-        leftJoin('users', 'meetings.user_id', '=', 'users.id')->
+        leftJoin('users', 'meetings.meeting_user_id', '=', 'users.id')->
         leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')->
         select('meetings.*', 'companies.name as company_name', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')->
-        where('meetings.user_id', '=', intval($request->input('user_id')))->where(DB::raw("DATEDIFF(meeting_date, NOW())"), '<=', 3)->get();
+        where('meetings.meeting_user_id', '=', intval($request->input('user_id')))->where(DB::raw("DATEDIFF(meeting_date, NOW())"), '<=', 3)->get();
         $result['status'] = 200;
         return response()->json($result);
     }

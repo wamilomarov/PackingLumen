@@ -30,11 +30,6 @@ class CreateUsersAccessesTable extends Migration
             $table->timestamps();
         });
 
-        DB::table('users_accesses')->insert(
-            array(
-                ['user_id' => 1, 'company_read' => 1, 'company_write' => 1, 'machines_read' => 1, 'machines_write' => 1, 'workers_read' => 1
-                    , 'workers_write' => 1, 'notes_read' => 1, 'notes_write' => 1, 'meetings_read' => 1, 'meetings_write' => 1])
-        );
     }
 
     /**

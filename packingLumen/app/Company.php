@@ -70,4 +70,17 @@ class Company extends Model
         $machines = DB::table('machines')->leftJoin('brands', 'brands.id', '=', 'machines.brand_id')->select('machines.*', 'brands.name as brand_name')->where('company_id', '=', $this->id)->get();
         return $machines;
     }
+
+    public function getMeetings()
+    {
+        $meetings = DB::table('meetings')
+        //->leftJoin('companies', 'companies.id', '=', 'meetings.company_id')
+        ->leftJoin('users', 'meetings.meeting_user_id', '=', 'users.id')
+        ->leftJoin('workers', 'meetings.worker_id', '=', 'workers.id')
+        ->where('meetings.company_id', '=', $this->id)
+        ->select('meetings.*', 'workers.first_name as worker_first_name', 'workers.last_name as worker_last_name', 'users.first_name as user_first_name', 'users.last_name as user_last_name')
+        ->get();
+
+        return $meetings;
+    }
 }

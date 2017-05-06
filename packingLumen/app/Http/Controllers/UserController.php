@@ -47,6 +47,7 @@ class UserController extends Controller
                 $result['status'] = 200;
                 $result['data']['api_token'] = $token;
                 $result['data']['user'] = $user;
+                $result['data']['user']['accesses'] = DB::table('users_accesses')->select('*')->where('user_id', '=', $user->id)->first();
                 return response()->json($result);
             } else {
                 $result['status'] = 407;
@@ -311,6 +312,11 @@ class UserController extends Controller
         }
 
         return response()->json($result);
+    }
+
+    public function pass($pass)
+    {
+        return sha1($this->salt.$pass);
     }
 
 }
