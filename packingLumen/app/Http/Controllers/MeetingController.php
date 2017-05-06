@@ -31,7 +31,7 @@ class MeetingController extends Controller
 
     public function add(Request $request)
     {
-        if(!Auth::user()->hasAccess(10)){
+        if(!Auth::user()->hasAccess('meetings_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -58,7 +58,7 @@ class MeetingController extends Controller
 
     public function update(Request $request)
     {
-        if(!Auth::user()->hasAccess(10)){
+        if(!Auth::user()->hasAccess('meetings_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -111,7 +111,7 @@ class MeetingController extends Controller
 
     public function delete($id)
     {
-        if(!Auth::user()->hasAccess(10)){
+        if(!Auth::user()->hasAccess('meetings_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -129,7 +129,7 @@ class MeetingController extends Controller
 
     public function info($id)
     {
-        if(!Auth::user()->hasAccess(9)){
+        if(!Auth::user()->hasAccess('meetings_read')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -145,7 +145,7 @@ class MeetingController extends Controller
 
     public function getMeetings()
     {
-        if(!Auth::user()->hasAccess(9)){
+        if(!Auth::user()->hasAccess('meetings_read')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -168,7 +168,7 @@ class MeetingController extends Controller
 
     public function getReminders(Request $request)
     {
-        if(!Auth::user()->hasAccess(9)){
+        if(!Auth::user()->hasAccess('meetings_read')){
             $result['status'] = 403;
             return response()->json($result);
         }

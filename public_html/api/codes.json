@@ -51,7 +51,9 @@
     },
     {
       //POST: /updateUser
-      //status, first_name, last_name, email, mobile_phone, office_phone (all optional, at least one of them is needed), updated_user_id, user_id, api_token
+      //status, first_name, last_name, email, mobile_phone, office_phone (all optional, at least one of them is needed), updated_user_id,
+      //company_read, company_write, machines_read, machines_write, workers_read, workers_write,
+      //notes_read, notes_write, meetings_read, meetings_write, user_id, api_token
       "status": [200, 405, 401]
     },
     {
@@ -94,6 +96,33 @@
         }
       }
 
+    },
+    {
+      //GET: /getUsers?user_id=&api_token=
+      "data": {
+        "status": [200, 401],
+        "users": {
+          "total": 1,
+          "per_page": 30,
+          "current_page": 1,
+          "last_page": 1,
+          "next_page_url": null,
+          "prev_page_url": null,
+          "from": 1,
+          "to": 1,
+          "data": [
+            {
+              "id": 1,
+              "status": 1,
+              "first_name": "Shamil",
+              "last_name": "Omarov",
+              "mobile_phone": "245415",
+              "office_phone": "351651",
+              "email": "email@email.com"
+            }
+          ]
+        }
+      }
     },
     {
       //GET: /getUserStatuses?user_id=&api_token=

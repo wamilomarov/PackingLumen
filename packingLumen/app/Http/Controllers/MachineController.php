@@ -30,7 +30,7 @@ class MachineController extends Controller
 
     public function add(Request $request)
     {
-        if(!Auth::user()->hasAccess(4)){
+        if(!Auth::user()->hasAccess('machines_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -56,7 +56,7 @@ class MachineController extends Controller
 
     public function update(Request $request)
     {
-        if(!Auth::user()->hasAccess(4)){
+        if(!Auth::user()->hasAccess('machines_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -101,7 +101,7 @@ class MachineController extends Controller
 
     public function delete($id)
     {
-        if(!Auth::user()->hasAccess(4)){
+        if(!Auth::user()->hasAccess('machines_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -119,7 +119,7 @@ class MachineController extends Controller
 
     public function info($id)
     {
-        if(!Auth::user()->hasAccess(3)){
+        if(!Auth::user()->hasAccess('machines_read')){
             $result['status'] = 403;
             return response()->json($result);
         }

@@ -30,7 +30,7 @@ class CompanyController extends Controller
 
     public function create(Request $request)
     {
-        if(!Auth::user()->hasAccess(2)){
+        if(!Auth::user()->hasAccess('company_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -55,7 +55,7 @@ class CompanyController extends Controller
 
     public function update(Request $request)
     {
-        if(!Auth::user()->hasAccess(2)){
+        if(!Auth::user()->hasAccess('company_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -108,7 +108,7 @@ class CompanyController extends Controller
 
     public function delete($id)
     {
-        if(!Auth::user()->hasAccess(2)){
+        if(!Auth::user()->hasAccess('company_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -130,7 +130,7 @@ class CompanyController extends Controller
 
     public function info($id)
     {
-        if(!Auth::user()->hasAccess(1)){
+        if(!Auth::user()->hasAccess('company_read')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -164,7 +164,7 @@ class CompanyController extends Controller
 
     public function getCompaniesList()
     {
-        if(!Auth::user()->hasAccess(1)){
+        if(!Auth::user()->hasAccess('company_read')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -175,7 +175,7 @@ class CompanyController extends Controller
 
     public function search(Request $request)
     {
-        if(!Auth::user()->hasAccess(1)){
+        if(!Auth::user()->hasAccess('company_read')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -190,7 +190,7 @@ class CompanyController extends Controller
     public function searchByFields(Request $request)
     {
 
-        if(!Auth::user()->hasAccess(1)){
+        if(!Auth::user()->hasAccess('company_read')){
             $result['status'] = 403;
             return response()->json($result);
         }

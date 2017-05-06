@@ -31,7 +31,7 @@ class CompanyNoteController extends Controller
 
     public function add(Request $request)
     {
-        if(!Auth::user()->hasAccess(8)){
+        if(!Auth::user()->hasAccess('notes_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -57,7 +57,7 @@ class CompanyNoteController extends Controller
 
     public function update(Request $request)
     {
-        if(!Auth::user()->hasAccess(8)){
+        if(!Auth::user()->hasAccess('notes_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -101,7 +101,7 @@ class CompanyNoteController extends Controller
 
     public function delete($id)
     {
-        if(!Auth::user()->hasAccess(8)){
+        if(!Auth::user()->hasAccess('notes_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -119,7 +119,7 @@ class CompanyNoteController extends Controller
 
     public function info($id)
     {
-        if(!Auth::user()->hasAccess(7)){
+        if(!Auth::user()->hasAccess('notes_read')){
             $result['status'] = 403;
             return response()->json($result);
         }

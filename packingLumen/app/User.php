@@ -55,9 +55,9 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
 
     public function hasAccess($access)
     {
-        $users_access = DB::table('users_accesses')->select('table')->where('user_id', '=', $this->id)->where('table', '=', $access)->count();
+        $users_access = DB::table('users_accesses')->select($access)->where('user_id', '=', $this->id)->first();
 
-        if ($users_access > 0){
+        if ($users_access->$access == 1){
             return TRUE;
         }
         else{

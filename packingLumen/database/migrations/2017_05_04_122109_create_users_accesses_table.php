@@ -17,23 +17,23 @@ class CreateUsersAccessesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->integer('table'); // 1 company read, 2 company write, 3 machines read, 4 machines write, 5 workers read, 6 workers write
-                                      // 7 notes read, 8 notes write, 9 meetings read, 10 meetings write
+            $table->tinyInteger('company_read');
+            $table->tinyInteger('company_write');
+            $table->tinyInteger('machines_read');
+            $table->tinyInteger('machines_write');
+            $table->tinyInteger('workers_read');
+            $table->tinyInteger('workers_write');
+            $table->tinyInteger('notes_read');
+            $table->tinyInteger('notes_write');
+            $table->tinyInteger('meetings_read');
+            $table->tinyInteger('meetings_write');
             $table->timestamps();
         });
 
         DB::table('users_accesses')->insert(
             array(
-                ['user_id' => 1, 'table' => 1],
-                ['user_id' => 1, 'table' => 2],
-                ['user_id' => 1, 'table' => 3],
-                ['user_id' => 1, 'table' => 4],
-                ['user_id' => 1, 'table' => 5],
-                ['user_id' => 1, 'table' => 6],
-                ['user_id' => 1, 'table' => 7],
-                ['user_id' => 1, 'table' => 8],
-                ['user_id' => 1, 'table' => 9],
-                ['user_id' => 1, 'table' => 10])
+                ['user_id' => 1, 'company_read' => 1, 'company_write' => 1, 'machines_read' => 1, 'machines_write' => 1, 'workers_read' => 1
+                    , 'workers_write' => 1, 'notes_read' => 1, 'notes_write' => 1, 'meetings_read' => 1, 'meetings_write' => 1])
         );
     }
 

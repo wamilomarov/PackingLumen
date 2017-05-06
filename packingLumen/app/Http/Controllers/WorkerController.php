@@ -30,7 +30,7 @@ class WorkerController extends Controller
 
     public function register(Request $request)
     {
-        if(!Auth::user()->hasAccess(6)){
+        if(!Auth::user()->hasAccess('workers_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -60,7 +60,7 @@ class WorkerController extends Controller
 
     public function update(Request $request)
     {
-        if(!Auth::user()->hasAccess(6)){
+        if(!Auth::user()->hasAccess('workers_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -118,7 +118,7 @@ class WorkerController extends Controller
 
     public function delete($id)
     {
-        if(!Auth::user()->hasAccess(6)){
+        if(!Auth::user()->hasAccess('workers_write')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -136,7 +136,7 @@ class WorkerController extends Controller
 
     public function info($id)
     {
-        if(!Auth::user()->hasAccess(5)){
+        if(!Auth::user()->hasAccess('workers_read')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -148,7 +148,7 @@ class WorkerController extends Controller
 
     public function searchByFields(Request $request)
     {
-        if(!Auth::user()->hasAccess(5)){
+        if(!Auth::user()->hasAccess('workers_read')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -206,7 +206,7 @@ class WorkerController extends Controller
 
     public function search(Request $request)
     {
-        if(!Auth::user()->hasAccess(5)){
+        if(!Auth::user()->hasAccess('workers_read')){
             $result['status'] = 403;
             return response()->json($result);
         }
@@ -228,7 +228,7 @@ class WorkerController extends Controller
 
     public function searchWorkerName(Request $request)
     {
-        if(!Auth::user()->hasAccess(5)){
+        if(!Auth::user()->hasAccess('workers_read')){
             $result['status'] = 403;
             return response()->json($result);
         }

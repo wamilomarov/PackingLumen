@@ -25,7 +25,7 @@ $app->group(['middleware' => 'auth'], function () use ($app) {
 
     $app->get('/getUserStatuses', [ 'middleware' => 'admin', 'uses' => 'UserController@getUserStatuses']);
 
-    $app->post('/registerUser', [ 'middleware' => 'admin', 'uses' => 'UserController@register']);
+    $app->post('/registerUser', 'UserController@register');
 
     $app->post('/updateUser', [ 'middleware' => 'admin', 'uses' => 'UserController@update']);
 
@@ -34,6 +34,8 @@ $app->group(['middleware' => 'auth'], function () use ($app) {
     $app->post('/searchUser', [ 'middleware' => 'admin', 'uses' => 'UserController@search']);
 
     $app->get('/getUser/{id}', [ 'middleware' => 'admin', 'uses' => 'UserController@info']);
+
+    $app->get('/getUsers', [ 'middleware' => 'admin', 'uses' => 'UserController@getUsersList']);
 
 
     $app->post('/registerCompany', 'CompanyController@create');

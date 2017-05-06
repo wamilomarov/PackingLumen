@@ -72,10 +72,9 @@ class UserController extends Controller
     public function getUserStatuses()
     {
         $result['status'] = 200;
-        $result['data']['statuses'] = [
-            ['id' => 1, 'name' => 'Admin'],
-            ['id' => 2, 'name' => 'Designer'],
-            ['id' => 3, 'name' => 'Sales manager']];
+        $result['data']['statuses'] = DB::table('users_statuses')->select('id', 'name')->get();
+
+        return response()->json($result);
     }
 
     public function register(Request $request){
@@ -96,45 +95,45 @@ class UserController extends Controller
                 $user->password=sha1($this->salt.$request->get('password'));
                 $token=uniqid('crm', true);
                 $user->api_token=$token;
-                if ($request->has('status')){
-                    $user->status=$request->get('status');
-                }
+                $user->status=$request->get('status');
+
 
                 if($user->save()){
 
-                    $access = [];
-                    if ($request->get('company_read') == TRUE){
-                        array_push($access, ['user_id' => $user->id, 'table' =>1]);
-                    }
-                    if ($request->get('company_write') == TRUE){
-                        array_push($access, ['user_id' => $user->id, 'table' =>2]);
-                    }
-                    if ($request->get('machines_read') == TRUE){
-                        array_push($access, ['user_id' => $user->id, 'table' =>3]);
-                    }
-                    if ($request->get('machines_write') == TRUE){
-                        array_push($access, ['user_id' => $user->id, 'table' =>4]);
-                    }
-                    if ($request->get('workers_read') == TRUE){
-                        array_push($access, ['user_id' => $user->id, 'table' =>5]);
-                    }
-                    if ($request->get('workers_write') == TRUE){
-                        array_push($access, ['user_id' => $user->id, 'table' =>6]);
-                    }
-                    if ($request->get('notes_read') == TRUE){
-                        array_push($access, ['user_id' => $user->id, 'table' =>7]);
-                    }
-                    if ($request->get('notes_write') == TRUE){
-                        array_push($access, ['user_id' => $user->id, 'table' =>8]);
-                    }
-                    if ($request->get('meetings_read') == TRUE){
-                        array_push($access, ['user_id' => $user->id, 'table' =>9]);
-                    }
-                    if ($request->get('meetings_write') == TRUE){
-                        array_push($access, ['user_id' => $user->id, 'table' =>10]);
-                    }
+                    if ($request->get('status') != 1) {
 
-                    DB::table('users_accesses')->insert($access);
+                        $access = [
+                            'user_id' => $user->id,
+                            'company_read' => $request->get('company_read'),
+                            'company_write' => $request->get('company_write'),
+                            'machines_read' => $request->get('machines_read'),
+                            'machines_write' => $request->get('machines_write'),
+                            'workers_read' => $request->get('workers_read'),
+                            'workers_write' => $request->get('workers_write'),
+                            'notes_read' => $request->get('notes_read'),
+                            'notes_write' => $request->get('notes_write'),
+                            'meetings_read' => $request->get('meetings_read'),
+                            'meetings_write' => $request->get('meetings_write')
+                        ];
+
+                        DB::table('users_accesses')->insert($access);
+                    }
+                    elseif ($request->get('status') == 1){
+                        DB::table('users_accesses')->insert(
+                            [
+                                'user_id' => $user->id,
+                                'company_read' => 1,
+                                'company_write' => 1,
+                                'machines_read' => 1,
+                                'machines_write' => 1,
+                                'workers_read' => 1,
+                                'workers_write' => 1,
+                                'notes_read' => 1,
+                                'notes_write' => 1,
+                                'meetings_read' => 1,
+                                'meetings_write' => 1]
+                        );
+                    }
                     $result['status'] = 200;
                 } else {
                     $result['status'] = 402;
@@ -162,6 +161,35 @@ class UserController extends Controller
 
         if ($request->has('status')){
             $params['status'] = $request->get('status');
+
+            if ($request->get('status') == 1){
+
+                    $access = [
+                        'company_read' => 1,
+                        'company_write' => 1,
+                        'machines_read' => 1,
+                        'machines_write' => 1,
+                        'workers_read' => 1,
+                        'workers_write' => 1,
+                        'notes_read' => 1,
+                        'notes_write' => 1,
+                        'meetings_read' => 1,
+                        'meetings_write' => 1];
+            }
+            elseif ($request->get('status') == 2){
+                $access = [
+                    'company_read' => $request->get('company_read'),
+                    'company_write' => $request->get('company_write'),
+                    'machines_read' => $request->get('machines_read'),
+                    'machines_write' => $request->get('machines_write'),
+                    'workers_read' => $request->get('workers_read'),
+                    'workers_write' => $request->get('workers_write'),
+                    'notes_read' => $request->get('notes_read'),
+                    'notes_write' => $request->get('notes_write'),
+                    'meetings_read' => $request->get('meetings_read'),
+                    'meetings_write' => $request->get('meetings_write')
+                ];
+            }
         }
 
         if ($request->has('email')){
@@ -184,75 +212,9 @@ class UserController extends Controller
             $params['office_phone'] = $request->get('office_phone');
         }
 
-
-        $access = [];
-        if ($request->get('company_read') == TRUE){
-            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>1]);
-        }
-        else {
-            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
-        }
-        if ($request->get('company_write') == TRUE){
-            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>2]);
-        }
-        else {
-            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
-        }
-        if ($request->get('machines_read') == TRUE){
-            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>3]);
-        }
-        else {
-            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
-        }
-        if ($request->get('machines_write') == TRUE){
-            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>4]);
-        }
-        else {
-            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
-        }
-        if ($request->get('workers_read') == TRUE){
-            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>5]);
-        }
-        else {
-            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
-        }
-        if ($request->get('workers_write') == TRUE){
-            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>6]);
-        }
-        else {
-            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
-        }
-        if ($request->get('notes_read') == TRUE){
-            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>7]);
-        }
-        else {
-            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
-        }
-        if ($request->get('notes_write') == TRUE){
-            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>8]);
-        }
-        else {
-            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
-        }
-        if ($request->get('meetings_read') == TRUE){
-            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>9]);
-        }
-        else {
-            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
-        }
-        if ($request->get('meetings_write') == TRUE){
-            array_push($access, ['user_id' => $request->get('updated_user_id'), 'table' =>10]);
-        }
-        else {
-            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->where('table',  '=',  1)->delete();
-        }
-
-        DB::table('users_accesses')->insert($access);
-
-
-
         if (count($params) > 0){
             $update->update($params);
+            DB::table('users_accesses')->where('user_id', '=', $request->get('updated_user_id'))->update($access);
             $result['status'] = 200;
         }
         else{
@@ -280,7 +242,20 @@ class UserController extends Controller
 
     public function info($id)
     {
-        $result['data']['user'] = User::find(intval($id));
+        $result['data']['user'] = DB::table('users')->leftJoin('users_statuses','users_statuses.id', '=', 'users.status')
+            ->leftJoin('users_accesses', 'users_accesses.user_id', '=', 'users.id')
+            ->select('users_accesses.*', 'users.id', 'users_statuses.name as status_name', 'users_statuses.id as status', 'users.first_name', 'users.last_name', 'users.mobile_phone',
+                'users.office_phone', 'users.email')
+            ->where('users.id', '=', intval($id))->first();
+        $result['status'] = 200;
+        return response()->json($result);
+    }
+
+    public function getUsersList()
+    {
+        $result['data']['users'] = DB::table('users')->leftJoin('users_statuses','users_statuses.id', '=', 'users.status')
+            ->select('users.id', 'users_statuses.name as status_name', 'users.first_name', 'users.last_name', 'users.mobile_phone', 'users.office_phone', 'users.email')
+            ->paginate(30);
         $result['status'] = 200;
         return response()->json($result);
     }
