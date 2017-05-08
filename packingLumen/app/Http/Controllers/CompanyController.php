@@ -134,6 +134,13 @@ class CompanyController extends Controller
             $result['status'] = 403;
             return response()->json($result);
         }
+
+        if (!Company::exists('companies', ['id' => intval($id)])){
+            $result['status'] = 409;
+
+            return response()->json($result);
+        }
+
         $company = Company::find(intval($id));
         $result['data']['company'] = $company;
 
